@@ -3,7 +3,7 @@
  *
  * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.4.2+.
  *
- * v1.1
+ * v1.2
  *
  * Copyright (c) 2010 Fred Wu
  *
@@ -27,15 +27,16 @@
  *
  * Configuration options:
  *
- * confirm          string    the HTML for the confirm action (default: "<a href='#'>Confirm</a>")
- * cancel           string    the HTML for the cancel action (default: "<a href='#'>Cancel</a>")
- * separator        string    the HTML for the separator between the confirm and the cancel actions (default: " ")
- * reverse          boolean   revert the confirm and the cancel actions (default: false)
- * allowMultiple    boolean   whether or not to allow multiple dialogues to appear simultaneously (default: true)
- * bindsOnEvent     string    the JavaScript event handler for binding the confirmation action (default: "click")
- * expiresIn        integer   seconds before the confirmation dialogue closes automatically, 0 to disable this feature (default: 0)
- * confirmCallback  function  the callback function to execute after the confirm action
- * cancelCallback   function  the callback function to execute after the cancel action
+ * confirm            string    the HTML for the confirm action (default: "<a href='#'>Confirm</a>")
+ * cancel             string    the HTML for the cancel action (default: "<a href='#'>Cancel</a>")
+ * separator          string    the HTML for the separator between the confirm and the cancel actions (default: " ")
+ * reverse            boolean   revert the confirm and the cancel actions (default: false)
+ * hideOriginalAction boolean   whether or not to hide the original action, useful for display the dialogue as a modal if set to false (default: true)
+ * allowMultiple      boolean   whether or not to allow multiple dialogues to appear simultaneously (default: true)
+ * bindsOnEvent       string    the JavaScript event handler for binding the confirmation action (default: "click")
+ * expiresIn          integer   seconds before the confirmation dialogue closes automatically, 0 to disable this feature (default: 0)
+ * confirmCallback    function  the callback function to execute after the confirm action
+ * cancelCallback     function  the callback function to execute after the cancel action
  */
 
 (function($){
@@ -46,6 +47,7 @@
 			cancel: "<a href='#'>Cancel</a>",
 			separator: " ",
 			reverse: false,
+			hideOriginalAction: true,
 			allowMultiple: true,
 			bindsOnEvent: "click",
 			expiresIn: 0,
@@ -72,7 +74,9 @@
 				$("span." + block_class).hide();
 			}
 			
-			$(this).trigger("update").hide();
+			if (options.hideOriginalAction === true) {
+				$(this).trigger("update").hide();
+			}
 			
 			var active_action_set = $("span." + block_class, $(this).parent());
 			
