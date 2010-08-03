@@ -3,7 +3,7 @@
  *
  * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.4.2+.
  *
- * v1.0
+ * v1.1
  *
  * Copyright (c) 2010 Fred Wu
  *
@@ -31,6 +31,7 @@
  * cancel           string    the HTML for the cancel action (default: "<a href='#'>Cancel</a>")
  * separator        string    the HTML for the separator between the confirm and the cancel actions (default: " ")
  * reverse          boolean   revert the confirm and the cancel actions (default: false)
+ * allowMultiple    boolean   whether or not to allow multiple dialogues to appear simultaneously (default: true)
  * bindsOnEvent     string    the JavaScript event handler for binding the confirmation action (default: "click")
  * expiresIn        integer   seconds before the confirmation dialogue closes automatically, 0 to disable this feature (default: 0)
  * confirmCallback  function  the callback function to execute after the confirm action
@@ -45,6 +46,7 @@
 			cancel: "<a href='#'>Cancel</a>",
 			separator: " ",
 			reverse: false,
+			allowMultiple: true,
 			bindsOnEvent: "click",
 			expiresIn: 0,
 			confirmCallback: function() { return true; },
@@ -66,6 +68,10 @@
 			: options.cancel + options.separator + options.confirm;
 		
 		$(this).live(options.bindsOnEvent, function(e) {
+			if (options.allowMultiple === false) {
+				$("span." + block_class).hide();
+			}
+			
 			$(this).trigger("update").hide();
 			
 			var active_action_set = $("span." + block_class, $(this).parent());
