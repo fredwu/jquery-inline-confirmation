@@ -1,7 +1,7 @@
 /**
  * Inline Confirmation plugin for jQuery
  *
- * One of the less obtrusive ways of implementing a confirmation dialogue.
+ * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.4.2+.
  *
  * v1.0
  *
@@ -19,7 +19,7 @@
  * // using some custom options
  * $("a.delete").inlineConfirmation({
  *   confirm: "<a href='#' class='confirm-yes'>Yes</a>",
- *	 cancel: "<a href='#' class='confirm-no'>No</a>",
+ *   cancel: "<a href='#' class='confirm-no'>No</a>",
  *   separator: " | ",
  *   reverse: true,
  *   bindsOnEvent: "hover",
