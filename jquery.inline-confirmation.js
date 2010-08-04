@@ -3,7 +3,7 @@
  *
  * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.4.2+.
  *
- * v1.2
+ * v1.3
  *
  * Copyright (c) 2010 Fred Wu
  *
@@ -23,6 +23,9 @@
  *   separator: " | ",
  *   reverse: true,
  *   bindsOnEvent: "hover",
+ *   confirmCallback: function(action) {
+ *     action.parent().fadeIn();
+ *   }
  * });
  *
  * Configuration options:
@@ -32,11 +35,10 @@
  * separator          string    the HTML for the separator between the confirm and the cancel actions (default: " ")
  * reverse            boolean   revert the confirm and the cancel actions (default: false)
  * hideOriginalAction boolean   whether or not to hide the original action, useful for display the dialogue as a modal if set to false (default: true)
- * allowMultiple      boolean   whether or not to allow multiple dialogues to appear simultaneously (default: true)
  * bindsOnEvent       string    the JavaScript event handler for binding the confirmation action (default: "click")
  * expiresIn          integer   seconds before the confirmation dialogue closes automatically, 0 to disable this feature (default: 0)
- * confirmCallback    function  the callback function to execute after the confirm action
- * cancelCallback     function  the callback function to execute after the cancel action
+ * confirmCallback    function  the callback function to execute after the confirm action, accepts the original action object as an argument
+ * cancelCallback     function  the callback function to execute after the cancel action, accepts the original action object as an argument
  */
 
 (function($){
@@ -48,14 +50,14 @@
 			separator: " ",
 			reverse: false,
 			hideOriginalAction: true,
-			allowMultiple: true,
 			bindsOnEvent: "click",
 			expiresIn: 0,
 			confirmCallback: function() { return true; },
 			cancelCallback: function() { return true; }
 		};
 		
-		var original_action = $(this);
+		var original_action;
+		var all_actions     = $(this);
 		var options         = $.extend(defaults, options);
 		var block_class     = "inline-confirmation-block";
 		var confirm_class   = "inline-confirmation-confirm";
@@ -70,9 +72,10 @@
 			: options.cancel + options.separator + options.confirm;
 		
 		$(this).live(options.bindsOnEvent, function(e) {
-			if (options.allowMultiple === false) {
-				$("span." + block_class).hide();
-			}
+			original_action = $(this);
+			
+			all_actions.show();
+			$("span." + block_class).hide();
 			
 			if (options.hideOriginalAction === true) {
 				$(this).trigger("update").hide();
@@ -88,22 +91,25 @@
 			
 			if (options.expiresIn > 0) {
 				setTimeout(function() {
-					$("span." + block_class, original_action.parent()).hide();
-					original_action.show();
+					$("span." + block_class, $(this).parent()).hide();
+					$(this).show();
 				}, options.expiresIn * 1000);
 			}
 			
 			e.preventDefault();
 		});
 		
-		original_action.parent().delegate("span." + action_class, "click", function() {
+		$(this).parent().delegate("span." + action_class, "click", function() {
 			$(this).parent().hide();
 			original_action.show();
 			
+			var args = new Array();
+			args[0]  = original_action;
+			
 			if ($(this).hasClass(confirm_class)) {
-				options.confirmCallback.apply(this);
+				options.confirmCallback.apply(this, args);
 			} else {
-				options.cancelCallback.apply(this);
+				options.cancelCallback.apply(this, args);
 			}
 		});
 	};
