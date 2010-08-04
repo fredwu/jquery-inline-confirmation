@@ -3,7 +3,7 @@
  *
  * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.4.2+.
  *
- * v1.3
+ * v1.3.1
  *
  * Copyright (c) 2010 Fred Wu
  *
@@ -91,8 +91,8 @@
 			
 			if (options.expiresIn > 0) {
 				setTimeout(function() {
-					$("span." + block_class, $(this).parent()).hide();
-					$(this).show();
+					$("span." + block_class, original_action.parent()).hide();
+					original_action.show();
 				}, options.expiresIn * 1000);
 			}
 			
