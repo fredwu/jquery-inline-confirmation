@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Inline Confirmation Demo (by Fred Wu)</title>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.inline-confirmation.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(function() {
+      $("form#users input.remove").inlineConfirmation({
+        confirmCallback: function() {
+          $(this).parents("tr").fadeOut();
+        },
+        reverse: true,
+        expiresIn: 3
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <h1>Inline Confirmation Demo</h1>
+  <h3>by Fred Wu</h3>
+  <br />
+  <form id="users">
+    <table>
+      <tr>
+        <td>Fred Wu</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+      <tr>
+        <td>Sheldon Cooper</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+      <tr>
+        <td>Leonard Hofstadter</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+      <tr>
+        <td>Howard Wolowitz</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+      <tr>
+        <td>Rajesh Koothrappali</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+      <tr>
+        <td>Penny</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+      <tr>
+        <td>Leslie Winkle</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+      <tr>
+        <td>Bernadette Rostenkowski</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+      <tr>
+        <td>Amy Farrah Fowler</td>
+        <td><input class="remove" type="submit" value="Remove" /></td>
+      </tr>
+    </table>
+  </form>
+</body>
+
+</html>
