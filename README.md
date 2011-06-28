@@ -42,6 +42,10 @@ $("a.delete").inlineConfirmation({
 });
 ```
 
+## Demo
+
+[Click here for a simple demo](http://fredwu.github.com/jquery-inline-confirmation/).
+
 ## Changelog
 
 v1.4.0 [2011-06-28]
