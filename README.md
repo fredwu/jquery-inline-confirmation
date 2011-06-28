@@ -8,6 +8,8 @@ An inline popup/modal box? Perhaps, but it is still obtrusive, in the sense that
 
 Meet __Inline Confirmation__ - a jQuery plugin for creating easy, less obtrusive confirmation dialogues!
 
+## Configuration
+
 There are a few options to customise the behaviour of this plugin:
 
 - _confirm_            (string)    the HTML for the confirm action (default: "<a href='#'>Confirm</a>")
