@@ -12,16 +12,58 @@ Meet __Inline Confirmation__ - a jQuery plugin for creating easy, less obtrusive
 
 There are a few options to customise the behaviour of this plugin:
 
-- _confirm_            (string)    the HTML for the confirm action (default: "<a href='#'>Confirm</a>")
-- _cancel_             (string)    the HTML for the cancel action (default: "<a href='#'>Cancel</a>")
-- _separator_          (string)    the HTML for the separator between the confirm and the cancel actions (default: " ")
-- _reverse_            (boolean)   revert the confirm and the cancel actions (default: false)
-- _hideOriginalAction_ (boolean)   whether or not to hide the original action, useful for display the dialogue as a modal if set to false (default: true)
-- _bindsOnEvent_       (string)    the JavaScript event handler for binding the confirmation action (default: "click")
-- _expiresIn_          (integer)   seconds before the confirmation dialogue closes automatically, 0 to disable this feature (default: 0)
-- _confirmCallback_    (function)  the callback function to execute after the confirm action, accepts the original action object as an argument
-- _cancelCallback_     (function)  the callback function to execute after the cancel action, accepts the original action object as an argument
-
+<table>
+  <tr>
+    <td><strong>Option</strong></td>
+    <td><strong>Type</strong></td>
+    <td><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td>confirm</td>
+    <td>String</td>
+    <td>The HTML for the confirm action (default: "&lt;a href='#'&gt;Confirm&lt;/a&gt;").</td>
+  </tr>
+  <tr>
+    <td>cancel</td>
+    <td>String</td>
+    <td>The HTML for the cancel action (default: "&lt;a href='#'&gt;Cancel&lt;/a&gt;").</td>
+  </tr>
+  <tr>
+    <td>separator</td>
+    <td>String</td>
+    <td>The HTML for the separator between the confirm and the cancel actions (default: " ").</td>
+  </tr>
+  <tr>
+    <td>reverse</td>
+    <td>Boolean</td>
+    <td>Revert the confirm and the cancel actions (default: false).</td>
+  </tr>
+  <tr>
+    <td>hideOriginalAction</td>
+    <td>Boolean</td>
+    <td>Whether or not to hide the original action, useful for display the dialogue as a modal if set to false (default: true).</td>
+  </tr>
+  <tr>
+    <td>bindsOnEvent</td>
+    <td>String</td>
+    <td>The JavaScript event handler for binding the confirmation action (default: "click").</td>
+  </tr>
+  <tr>
+    <td>expiresIn</td>
+    <td>Integer</td>
+    <td>Seconds before the confirmation dialogue closes automatically, 0 to disable this feature (default: 0).</td>
+  </tr>
+  <tr>
+    <td>confirmCallback</td>
+    <td>Function</td>
+    <td>The callback function to execute after the confirm action, accepts the original action object as an argument.</td>
+  </tr>
+  <tr>
+    <td>cancelCallback</td>
+    <td>Function</td>
+    <td>The callback function to execute after the cancel action, accepts the original action object as an argument.</td>
+  </tr>
+</table>
 
 ## Usage
 
