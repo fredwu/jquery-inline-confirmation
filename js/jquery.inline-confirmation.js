@@ -111,6 +111,7 @@
       } else {
         options.cancelCallback.apply(this, args);
       }
+      return false;
     });
   };
 
