@@ -57,6 +57,7 @@
     };
 
     var original_action;
+    var timeout_id;
     var all_actions     = $(this);
     var options         = $.extend(defaults, options);
     var block_class     = "inline-confirmation-block";
@@ -90,7 +91,7 @@
       }
 
       if (options.expiresIn > 0) {
-        setTimeout(function() {
+        timeout_id = setTimeout(function() {
           $("span." + block_class, original_action.parent()).hide();
           original_action.show();
         }, options.expiresIn * 1000);
@@ -100,6 +101,7 @@
     });
 
     $(this).parent().delegate("span." + action_class, "click", function() {
+      clearTimeout(timeout_id);
       $(this).parent().hide();
       original_action.show();
 
