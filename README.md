@@ -90,6 +90,11 @@ $("a.delete").inlineConfirmation({
 
 ## Changelog
 
+v1.4.1 [2011-07-30]
+
+- Fixed a bug where timeouts aren't being reset correctly. 
+- Fixed a bug where the click handler executes the default link behaviour.
+
 v1.4.0 [2011-06-28]
 
 - Added a demo and readme to the repository.
