@@ -3,7 +3,7 @@
  *
  * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.4.2+.
  *
- * v1.4.0
+ * v1.4.1
  *
  * Copyright (c) 2010 Fred Wu
  *
