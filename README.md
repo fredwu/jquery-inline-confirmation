@@ -1,4 +1,4 @@
-# Inline Confirmation plugin for jQuery
+# Inline Confirmation plugin for jQuery [![endorse](http://api.coderwall.com/fredwu/endorsecount.png)](http://coderwall.com/fredwu)
 
 In a web app, it is very common to have actions that destroy (delete/remove) data. These actions, if you don’t already know, should always map to POST methods. On top of that, because these actions are destructive, the UI should always ask the user for confirmation.
 
