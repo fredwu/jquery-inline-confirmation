@@ -121,6 +121,13 @@ v1.0.0 [2010-08-03]
 
 - Initial release.
 
+## More jQuery Plugins
+
+Check out my other jQuery plugins:
+
+- [Endless Scroll](https://github.com/fredwu/jquery-endless-scroll) - Endless/infinite scrolling/pagination.
+- [Slideshow Lite](https://github.com/fredwu/jquery-slideshow-lite) - An extremely lightweight slideshow plugin for jQuery.
+
 ## License
 
 Copyright (c) 2010 Fred Wu
