@@ -3,7 +3,7 @@
  *
  * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.4.2+.
  *
- * v1.4.1
+ * v1.5
  *
  * Copyright (c) 2010 Fred Wu
  *
@@ -43,7 +43,8 @@
 
 (function($){
 
-  $.fn.inlineConfirmation = function(options) {
+  $.inlineConfirmation = function(selector, options) {
+    
     var defaults = {
       confirm: "<a href='#'>Confirm</a>",
       cancel: "<a href='#'>Cancel</a>",
@@ -56,27 +57,50 @@
       cancelCallback: function() { return true; }
     };
 
-    var original_action;
-    var timeout_id;
-    var all_actions     = $(this);
     var options         = $.extend(defaults, options);
     var block_class     = "inline-confirmation-block";
     var confirm_class   = "inline-confirmation-confirm";
     var cancel_class    = "inline-confirmation-cancel";
     var action_class    = "inline-confirmation-action";
+    
+    // listen on `body` instead of `document`, so we can stop propagation to
+    // the rails-jquery listener which resides on `document`
+    $("body").on(options.bindsOnEvent, selector, function(e) {
+      
+      var confirmed = !!e.originalEvent.confirmed;
+      
+      // this is the 'true' event, so allow it
+      if (confirmed) {
+        return true;
+      }
+      
+      var confirmLabel = $(this).data("confirmLabel");
+      var cancelLabel = $(this).data("cancelLabel");
+      
+      if (confirmLabel) {
+        var confirmLink = "<a href='#'>" + confirmLabel + "</a>";
+      } else {
+         var confirmLink = options.confirm;
+      }
+      
+      if (cancelLabel) {
+        var cancelLink = "<a href='#'>" + cancelLabel + "</a>";
+      } else {
+        var cancelLink = options.cancel;
+      }
+      
+      var confirm_html = "<span class='" + action_class + " " + confirm_class + "'>" + confirmLink + "</span>";
+      var cancel_html  = "<span class='" + action_class + " " + cancel_class + "'>" + cancelLink + "</span>";
 
-    options.confirm = "<span class='" + action_class + " " + confirm_class + "'>" + options.confirm + "</span>";
-    options.cancel  = "<span class='" + action_class + " " + cancel_class + "'>" + options.cancel + "</span>";
+      var action_set = options.reverse === false
+        ? confirm_html + options.separator + cancel_html
+        : cancel_html + options.separator + confirm_html;
+      
+      var timeout_id;
+      var original_action = $(this);
 
-    var action_set = options.reverse === false
-      ? options.confirm + options.separator + options.cancel
-      : options.cancel + options.separator + options.confirm;
-
-    $(this).live(options.bindsOnEvent, function(e) {
-      original_action = $(this);
-
-      all_actions.show();
-      $("span." + block_class).hide();
+      $(selector).show(); // show all
+      $("span." + block_class).hide(); // hide all confirmations
 
       if (options.hideOriginalAction === true) {
         $(this).trigger("update").hide();
@@ -96,25 +120,36 @@
           original_action.show();
         }, options.expiresIn * 1000);
       }
+      
+      $(this).parent().delegate("span." + action_class, "click", function(event) {
+        clearTimeout(timeout_id);
+        $(this).parent().hide();
+        original_action.show();
 
+        var args = new Array();
+        args[0]  = original_action;
+
+        if ($(this).hasClass(confirm_class)) {
+          options.confirmCallback.apply(this, args);
+          // old school event needed for link clicks to trigger navigation etc.
+          // http://stackoverflow.com/questions/143747
+          // don't support old versions of IE, but could easily be extended to do so (see SO question)
+          var element = $(original_action).get(0);
+          var evt = document.createEvent("HTMLEvents");
+          evt.initEvent(options.bindsOnEvent, true, true ); // event type,bubbling,cancelable
+          evt.confirmed = true; // used to allow this event (see above)
+          element.dispatchEvent(evt);
+        } else {
+          options.cancelCallback.apply(this, args);
+        }
+        return false;
+      });
+
+      // this event shouldn't go further, since it could trigger backbone, ember or other listeners
       e.preventDefault();
+      e.stopImmediatePropagation();
     });
 
-    $(this).parent().delegate("span." + action_class, "click", function() {
-      clearTimeout(timeout_id);
-      $(this).parent().hide();
-      original_action.show();
-
-      var args = new Array();
-      args[0]  = original_action;
-
-      if ($(this).hasClass(confirm_class)) {
-        options.confirmCallback.apply(this, args);
-      } else {
-        options.cancelCallback.apply(this, args);
-      }
-      return false;
-    });
   };
 
 })(jQuery);
