@@ -1,9 +1,9 @@
 /**
  * Inline Confirmation plugin for jQuery
  *
- * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.4.2+.
+ * One of the less obtrusive ways of implementing a confirmation dialogue. Requires jQuery 1.7+.
  *
- * v1.4.1
+ * v1.4.2
  *
  * Copyright (c) 2010 Fred Wu
  *
@@ -72,7 +72,7 @@
       ? options.confirm + options.separator + options.cancel
       : options.cancel + options.separator + options.confirm;
 
-    $(this).live(options.bindsOnEvent, function(e) {
+    $(this).on(options.bindsOnEvent, function(e) {
       original_action = $(this);
 
       all_actions.show();

@@ -90,6 +90,10 @@ $("a.delete").inlineConfirmation({
 
 ## Changelog
 
+v1.4.2 [2013-03-07]
+
+- Use jQuery 1.7+'s `on()` instead of the old `live()`
+
 v1.4.1 [2011-07-30]
 
 - Fixed a bug where timeouts aren't being reset correctly. 
