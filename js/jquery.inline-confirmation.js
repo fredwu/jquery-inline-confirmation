@@ -98,6 +98,7 @@
       }
 
       e.preventDefault();
+      return false;
     });
 
     $(this).parent().delegate("span." + action_class, "click", function() {
