@@ -137,3 +137,7 @@ Check out my other jQuery plugins:
 Copyright (c) 2010-2012 Fred Wu
 
 Released under the [MIT](http://www.opensource.org/licenses/mit-license.php) license.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/fredwu/jquery-inline-confirmation/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
